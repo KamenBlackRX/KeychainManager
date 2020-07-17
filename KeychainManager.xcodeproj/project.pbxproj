@@ -10,6 +10,14 @@
 		CCB1D7DE24C1E581006ED257 /* KeychainManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB1D7D424C1E581006ED257 /* KeychainManager.framework */; };
 		CCB1D7E324C1E581006ED257 /* KeychainManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1D7E224C1E581006ED257 /* KeychainManagerTests.swift */; };
 		CCB1D7E524C1E581006ED257 /* KeychainManager.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB1D7D724C1E581006ED257 /* KeychainManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CCB1D7EF24C1E8FF006ED257 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1D7EE24C1E8FF006ED257 /* KeychainManager.swift */; };
+		CCB1D7F024C1E8FF006ED257 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1D7EE24C1E8FF006ED257 /* KeychainManager.swift */; };
+		CCB1D7F324C1EB8A006ED257 /* CommonKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1D7F224C1EB8A006ED257 /* CommonKeys.swift */; };
+		CCB1D7F424C1EB8A006ED257 /* CommonKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1D7F224C1EB8A006ED257 /* CommonKeys.swift */; };
+		CCB1D7F624C1EC54006ED257 /* CustomErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1D7F524C1EC54006ED257 /* CustomErrors.swift */; };
+		CCB1D7F724C1EC54006ED257 /* CustomErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1D7F524C1EC54006ED257 /* CustomErrors.swift */; };
+		CCB1D7FA24C1ECA3006ED257 /* KeychainProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1D7F924C1ECA3006ED257 /* KeychainProtocols.swift */; };
+		CCB1D7FB24C1ECA3006ED257 /* KeychainProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB1D7F924C1ECA3006ED257 /* KeychainProtocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +37,10 @@
 		CCB1D7DD24C1E581006ED257 /* KeychainManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KeychainManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCB1D7E224C1E581006ED257 /* KeychainManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManagerTests.swift; sourceTree = "<group>"; };
 		CCB1D7E424C1E581006ED257 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CCB1D7EE24C1E8FF006ED257 /* KeychainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		CCB1D7F224C1EB8A006ED257 /* CommonKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonKeys.swift; sourceTree = "<group>"; };
+		CCB1D7F524C1EC54006ED257 /* CustomErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomErrors.swift; sourceTree = "<group>"; };
+		CCB1D7F924C1ECA3006ED257 /* KeychainProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainProtocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +83,9 @@
 		CCB1D7D624C1E581006ED257 /* KeychainManager */ = {
 			isa = PBXGroup;
 			children = (
+				CCB1D7F824C1EC92006ED257 /* Protocols */,
+				CCB1D7F124C1EB72006ED257 /* Utils */,
+				CCB1D7EE24C1E8FF006ED257 /* KeychainManager.swift */,
 				CCB1D7D724C1E581006ED257 /* KeychainManager.h */,
 				CCB1D7D824C1E581006ED257 /* Info.plist */,
 			);
@@ -84,6 +99,23 @@
 				CCB1D7E424C1E581006ED257 /* Info.plist */,
 			);
 			path = KeychainManagerTests;
+			sourceTree = "<group>";
+		};
+		CCB1D7F124C1EB72006ED257 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CCB1D7F224C1EB8A006ED257 /* CommonKeys.swift */,
+				CCB1D7F524C1EC54006ED257 /* CustomErrors.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		CCB1D7F824C1EC92006ED257 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				CCB1D7F924C1ECA3006ED257 /* KeychainProtocols.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +180,7 @@
 				TargetAttributes = {
 					CCB1D7D324C1E581006ED257 = {
 						CreatedOnToolsVersion = 11.6;
+						LastSwiftMigration = 1160;
 					};
 					CCB1D7DC24C1E581006ED257 = {
 						CreatedOnToolsVersion = 11.6;
@@ -195,6 +228,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCB1D7F324C1EB8A006ED257 /* CommonKeys.swift in Sources */,
+				CCB1D7FA24C1ECA3006ED257 /* KeychainProtocols.swift in Sources */,
+				CCB1D7F624C1EC54006ED257 /* CustomErrors.swift in Sources */,
+				CCB1D7EF24C1E8FF006ED257 /* KeychainManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +240,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCB1D7E324C1E581006ED257 /* KeychainManagerTests.swift in Sources */,
+				CCB1D7F724C1EC54006ED257 /* CustomErrors.swift in Sources */,
+				CCB1D7F424C1EB8A006ED257 /* CommonKeys.swift in Sources */,
+				CCB1D7FB24C1ECA3006ED257 /* KeychainProtocols.swift in Sources */,
+				CCB1D7F024C1E8FF006ED257 /* KeychainManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +381,7 @@
 		CCB1D7E924C1E581006ED257 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -355,6 +397,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.interloper.KeychainManager;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -363,6 +407,7 @@
 		CCB1D7EA24C1E581006ED257 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -378,6 +423,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.interloper.KeychainManager;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -386,6 +432,7 @@
 		CCB1D7EC24C1E581006ED257 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = KeychainManagerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -403,6 +450,7 @@
 		CCB1D7ED24C1E581006ED257 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = KeychainManagerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
