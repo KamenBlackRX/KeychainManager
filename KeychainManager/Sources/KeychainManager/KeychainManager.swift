@@ -1,9 +1,9 @@
 //
 //  KeychainManager.swift
-//  Common
+//  KeychainManager
 //
 //  Created by Jefferson Barbosa Puchalski on 14/05/20.
-//  Copyright © 2020 PagSeguro Credisim. All rights reserved.
+//  Copyright © 2020 Interloper. All rights reserved.
 //
 
 import Foundation
@@ -35,7 +35,7 @@ public class KeychainManager: KeychainProtocol {
      - Note: If value can't be retrived as string, a empty string will be given as return.
      - Returns: A string representation for keychain.
      */
-    public func load(forKey key: String) -> String {
+    public func load<T>(forKey key: String) -> T {
         let query: [String: AnyObject] = [
              kSecClass as String: kSecClassGenericPassword as NSString,
              kSecMatchLimit as String: kSecMatchLimitOne,
@@ -49,13 +49,13 @@ public class KeychainManager: KeychainProtocol {
             }
         if status != noErr {
             print("Error while loading key.")
-            return ""
+            return "" as! T
             
         }
-        return String(data: result as? Data ?? Data(), encoding: String.Encoding.utf8) ?? ""
+        
+        return result as! T
     }
     
-    @discardableResult
     public func save(_ value: String, forKey key: String) -> Bool {
         // create Default dictonary for key
         let query: [String: AnyObject] = [
