@@ -19,8 +19,8 @@ public class KeychainManager: KeychainProtocol {
     public var bundleName: String
     
     public init(for bundle: Bundle) {
-        self.bundleName = bundle.bundleIdentifier ?? "default"
-        // TODO: Add a debug framework latter
+        self.bundleName = bundle.bundleIdentifier ?? Bundle.main.bundleIdentifier ?? ""
+        //TODO: Add a debug framework latter
         //Logger.shared.logDebug(message: "Initialize keymanager instance", category: .application, args: nil)
         
     }
