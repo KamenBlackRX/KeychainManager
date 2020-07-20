@@ -13,12 +13,16 @@ enum RSABits: Int{
     case maximumBits = 4096
 }
 
+enum KeySecErrors: Error {
+    case MissingEntitlement
+}
+
 /**
  Protocols for keychain manager.
 */
 public protocol KeychainProtocol {
     var bundleName: String { get set }
-    func save(_ value: String, forKey key: String) -> Bool
+    func save(_ value: String, forKey key: String) throws -> Bool
     func load( forKey key: String) -> String
 }
 

@@ -121,7 +121,11 @@ case $1 in
  "-debug")
    debug
    ;;
-"-help")
+"--help")
+   echo "Usage: $0 {-build-all|-build-ios|-build-simulator|-only-package-all|-only-package-ios|-only-package-simulator}"
+   exit 1
+   ;;
+"-h")
    echo "Usage: $0 {-build-all|-build-ios|-build-simulator|-only-package-all|-only-package-ios|-only-package-simulator}"
    exit 1
    ;;
