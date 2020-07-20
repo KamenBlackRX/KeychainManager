@@ -22,6 +22,7 @@ public class KeychainManager: KeychainProtocol {
         self.bundleName = bundle.bundleIdentifier ?? "default"
         // TODO: Add a debug framework latter
         //Logger.shared.logDebug(message: "Initialize keymanager instance", category: .application, args: nil)
+        
     }
     
     public convenience init(instance: AnyClass) {
@@ -56,7 +57,7 @@ public class KeychainManager: KeychainProtocol {
         return result as! T
     }
     
-    public func save(_ value: String, forKey key: String) -> Bool {
+    public func save(_ value: String, forKey key: String) throws -> Bool {
         // create Default dictonary for key
         let query: [String: AnyObject] = [
           kSecClass as String: (kSecClassGenericPassword as NSString),
@@ -64,7 +65,7 @@ public class KeychainManager: KeychainProtocol {
           kSecAttrService as String: self.bundleName as AnyObject,
           kSecValueData as String: value.data(using: String.Encoding.utf8, allowLossyConversion: false)! as AnyObject
         ]
-        // Delete any keys if exsist.
+        // Delete previous keys if any exsist.
         _  =  SecItemDelete(query as CFDictionary)
         
         // Get result and validate if we got error.
@@ -75,6 +76,13 @@ public class KeychainManager: KeychainProtocol {
         if status == noErr {
             return true
         } else {
+            switch status {
+            case errSecMissingEntitlement:
+                throw KeySecErrors.MissingEntitlement
+            default:
+                break;
+            }
+            
             return false
         }
     }

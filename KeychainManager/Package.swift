@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "KeychainManager",
     platforms: [
-        .iOS(SupportedPlatform.IOSVersion.v10)
+        .iOS(SupportedPlatform.IOSVersion.v12)
     ],
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
