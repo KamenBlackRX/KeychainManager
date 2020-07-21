@@ -53,8 +53,13 @@ public class KeychainManager: KeychainProtocol {
             return "" as! T
             
         }
-        
-        return result as! T
+        // Check value and convert
+        switch T.type {
+        case String.Type:
+            return String(data: result ?? Data(), encoding: .utf8)
+        default:
+            return result as! T
+        }
     }
     
     public func save(_ value: String, forKey key: String) throws -> Bool {
