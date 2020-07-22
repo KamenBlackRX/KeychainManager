@@ -18,6 +18,9 @@ public class KeychainManager: KeychainProtocol {
     /** Bundle name for save keys */
     public var bundleName: String
     
+    /** A lock guard from C++ */
+    private let lock = NSLock()
+    
     public init(for bundle: Bundle) {
         self.bundleName = bundle.bundleIdentifier ?? Bundle.main.bundleIdentifier ?? ""
         //TODO: Add a debug framework latter
@@ -28,47 +31,46 @@ public class KeychainManager: KeychainProtocol {
     public convenience init(instance: AnyClass) {
         self.init(for: Bundle.init(for: instance))
     }
-   
-    /**
-     Load string value based in key inside keychain.
-     
-     Get a provied key and load a string repesentation from storage value from keychain.
-     - Note: If value can't be retrived as string, a empty string will be given as return.
-     - Returns: A string representation for keychain.
-     */
-    public func load<T>(forKey key: String) -> T {
+    
+    // Return a generic value from keychain
+    public func load<T>(forKey key: String) -> T? {
+        let ret = getData(forKey: key)
+        return ret as? T
+    }
+    
+    // Return a string value from keychain
+    public func load(forKey key: String) -> String? {
+        return String(data: getData(forKey: key) ?? Data(), encoding: .utf8)
+    }
+    
+    //TODO: Missing documentation
+    private func getData(forKey key: String) -> Data?{
         let query: [String: AnyObject] = [
-             kSecClass as String: kSecClassGenericPassword as NSString,
-             kSecMatchLimit as String: kSecMatchLimitOne,
-             kSecReturnData as String: kCFBooleanTrue,
-             kSecAttrService as String: self.bundleName as AnyObject,
-             kSecAttrAccount as String: key as AnyObject
-           ]
-            var result: AnyObject?
-            let status: OSStatus = withUnsafeMutablePointer(to: &result) {
-                SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0))
-            }
+            kSecClass as String: kSecClassGenericPassword as NSString,
+            kSecMatchLimit as String: kSecMatchLimitOne,
+            kSecReturnData as String: kCFBooleanTrue,
+            kSecAttrService as String: self.bundleName as AnyObject,
+            kSecAttrAccount as String: key as AnyObject
+        ]
+        var result: AnyObject?
+        let status: OSStatus = withUnsafeMutablePointer(to: &result) {
+            SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0))
+        }
         if status != noErr {
             print("Error while loading key.")
-            return "" as! T
-            
+            return nil
         }
-        // Check value and convert
-        switch T.type {
-        case String.Type:
-            return String(data: result ?? Data(), encoding: .utf8)
-        default:
-            return result as! T
-        }
+        return result as? Data
     }
+    
     
     public func save(_ value: String, forKey key: String) throws -> Bool {
         // create Default dictonary for key
         let query: [String: AnyObject] = [
-          kSecClass as String: (kSecClassGenericPassword as NSString),
-          kSecAttrAccount as String: key as AnyObject,
-          kSecAttrService as String: self.bundleName as AnyObject,
-          kSecValueData as String: value.data(using: String.Encoding.utf8, allowLossyConversion: false)! as AnyObject
+            kSecClass as String: (kSecClassGenericPassword as NSString),
+            kSecAttrAccount as String: key as AnyObject,
+            kSecAttrService as String: self.bundleName as AnyObject,
+            kSecValueData as String: value.data(using: String.Encoding.utf8, allowLossyConversion: false)! as AnyObject
         ]
         // Delete previous keys if any exsist.
         _  =  SecItemDelete(query as CFDictionary)
@@ -94,6 +96,10 @@ public class KeychainManager: KeychainProtocol {
     
     @discardableResult
     public func delete(forKey key: String) -> Bool {
+        // Lock run this in multiple thread and unlock as process end
+        lock.lock()
+        defer{ lock.unlock()}
+        
         // Build query for look in keychain.
         let query: [String: AnyObject] = [
             kSecClass as String: (kSecClassGenericPassword as NSString),
@@ -109,7 +115,7 @@ public class KeychainManager: KeychainProtocol {
         }
     }
     
-   public func saveCrypto(_ value: String, forKey key: String) throws -> Bool {
+    public func saveCrypto(_ value: String, forKey key: String) throws -> Bool {
         // Get a tag for key and create a new RSA key
         let tag = "\(bundleName).keys.password".data(using: .utf8)!
         // find created keys
@@ -130,7 +136,7 @@ public class KeychainManager: KeychainProtocol {
         return true
     }
     
-   public func loadCrypto<T: AnyObject>(forKey key: String) throws -> T? {
+    public func loadCrypto<T: AnyObject>(forKey key: String) throws -> T? {
         // Get a tag for key and create a new RSA key
         let tag = "\(bundleName).keys.password".data(using: .utf8)!
         // find created keys

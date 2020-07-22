@@ -23,7 +23,27 @@ enum KeySecErrors: Error {
 public protocol KeychainProtocol {
     var bundleName: String { get set }
     func save(_ value: String, forKey key: String) throws -> Bool
-    func load( forKey key: String) -> String
+    /**
+     Load string value based in key inside keychain.
+     
+     Get a provied key and load a string repesentation from storage value from keychain
+     - Parameters:
+        - key: String representing a key value to be loaded from chain.
+     - Note: If value can't be retrived as string, a empty string will be given as return.
+     - Returns: A given representation for keychain.
+     */
+    func load<T>(forKey key: String) -> T?
+    
+    /**
+     Load string value based in key inside keychain.
+     
+     Get a provied key and load a string repesentation from storage value from keychain
+     - Parameters:
+        - key: String representing a key value to be loaded from chain.
+     - Note: If value can't be retrived as string, a empty string will be given as return.
+     - Returns: If string is found, returns a given representation for keychain. Otherwise not.
+     */
+    func load(forKey key: String) -> String?
 }
 
 public protocol AsymetricCryptoProtocol {
